@@ -33,7 +33,8 @@ class SignIn extends React.Component {
     handleChange = event => {
         const { value, name } = event.target;
         // name will be email, value is the typed in email address
-        // The square brackets allows us to evaluate the value of a variable as the name of a property on our object. This is what allows us to dynamically set the prop, which is how we're to reuse this method for both our form inputs
+        // The square brackets allows us to evaluate the value of a variable as the name of a property on our object. 
+        // This is what allows us to dynamically set the prop, which is how we're to reuse this method for both our form inputs
         this.setState({ [name]: value });
     }
 
