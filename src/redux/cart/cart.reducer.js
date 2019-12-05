@@ -22,7 +22,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         case CartActionTypes.CLEAR_ITEM_FROM_CART: 
             return {
                 ...state,
-                // filter returns true so the item which we wanna keep
+                // filter returns true,so the item which we wanna keep
                 cartItems: state.cartItems.filter(
                     cartItem => cartItem.id !== action.payload.id)
             };

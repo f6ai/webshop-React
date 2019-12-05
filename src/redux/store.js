@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware } from 'redux';
-import { persistStore } from 'redux-persist';
-import logger from 'redux-logger';
+import { createStore, applyMiddleware } from "redux";
+import { persistStore } from "redux-persist";
+import logger from "redux-logger";
 
-import rootReducer from './root-reducer';
+import rootReducer from "./root-reducer";
 
 // logging the state after the action happened but before the root reducer
 const middlewares = [logger];
