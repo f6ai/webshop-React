@@ -12,10 +12,15 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.component";
 
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument
+  //addCollectionAndDocuments
+} from "./firebase/firebase.utils";
 
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+//import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -42,6 +47,13 @@ class App extends React.Component {
       }
 
       setCurrentUser(userAuth);
+
+      // add shop data to firestore
+      // we dont want some data (e.g. our initail ids) sent to firestore, so we destructure the collectionsArr and create an array of new objects, only with title and items data
+      //   addCollectionAndDocuments(
+      //     "collections",
+      //     collectionsArr.map(({ title, items }) => ({ title, items }))
+      //   );
     });
   }
 
@@ -80,6 +92,7 @@ class App extends React.Component {
 // this is for accessing the currentUser as props to use it after signin in -> redirect to homepage
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
+  //collectionsArr: selectCollectionsForPreview
 });
 
 const mapDispatchToProps = dispatch => ({
