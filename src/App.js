@@ -12,11 +12,11 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.component";
 
-import {
-  auth,
-  createUserProfileDocument
-  //addCollectionAndDocuments
-} from "./firebase/firebase.utils";
+// import {
+//   auth,
+//   createUserProfileDocument
+//   //addCollectionAndDocuments
+// } from "./firebase/firebase.utils";
 
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
@@ -28,33 +28,34 @@ class App extends React.Component {
   componentDidMount() {
     const { setCurrentUser } = this.props;
 
+    // THIS IS OLD AUTHENTICATION, REPLACED BY SAGAS
     // this is an open subscription: open messaging system between our app and firebase
     // firebase will inform if any authentication stuff is changed
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
 
-        // onSnapshot will send us the currently persisted data in database
-        // we also could use userRef.get() again
-        userRef.onSnapshot(snapShot => {
-          // we do not get the snapshot data until we call .data()
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
-          });
-          // console.log(this.state);
-        });
-      }
+    //     // onSnapshot will send us the currently persisted data in database
+    //     // we also could use userRef.get() again
+    //     userRef.onSnapshot(snapShot => {
+    //       // we do not get the snapshot data until we call .data()
+    //       setCurrentUser({
+    //         id: snapShot.id,
+    //         ...snapShot.data()
+    //       });
+    //       // console.log(this.state);
+    //     });
+    //   }
 
-      setCurrentUser(userAuth);
+    //   setCurrentUser(userAuth);
 
-      // add shop data to firestore
-      // we dont want some data (e.g. our initail ids) sent to firestore, so we destructure the collectionsArr and create an array of new objects, only with title and items data
-      //   addCollectionAndDocuments(
-      //     "collections",
-      //     collectionsArr.map(({ title, items }) => ({ title, items }))
-      //   );
-    });
+    // add shop data to firestore
+    // we dont want some data (e.g. our initail ids) sent to firestore, so we destructure the collectionsArr and create an array of new objects, only with title and items data
+    //   addCollectionAndDocuments(
+    //     "collections",
+    //     collectionsArr.map(({ title, items }) => ({ title, items }))
+    //   );
+    // });
   }
 
   componentWillUnmount() {
