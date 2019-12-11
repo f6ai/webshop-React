@@ -12,29 +12,21 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.component";
 
-// import {
-//   auth,
-//   createUserProfileDocument
-//   //addCollectionAndDocuments
-// } from "./firebase/firebase.utils";
-
-import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 //import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
+
+import { checkUserSession } from "./redux/user/user.actions";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
-
     // THIS IS OLD AUTHENTICATION, REPLACED BY SAGAS
     // this is an open subscription: open messaging system between our app and firebase
     // firebase will inform if any authentication stuff is changed
     // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
     //   if (userAuth) {
     //     const userRef = await createUserProfileDocument(userAuth);
-
     //     // onSnapshot will send us the currently persisted data in database
     //     // we also could use userRef.get() again
     //     userRef.onSnapshot(snapShot => {
@@ -46,9 +38,7 @@ class App extends React.Component {
     //       // console.log(this.state);
     //     });
     //   }
-
     //   setCurrentUser(userAuth);
-
     // add shop data to firestore
     // we dont want some data (e.g. our initail ids) sent to firestore, so we destructure the collectionsArr and create an array of new objects, only with title and items data
     //   addCollectionAndDocuments(
@@ -56,6 +46,10 @@ class App extends React.Component {
     //     collectionsArr.map(({ title, items }) => ({ title, items }))
     //   );
     // });
+
+    const { checkUserSession } = this.props;
+
+    checkUserSession();
   }
 
   componentWillUnmount() {
@@ -97,7 +91,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // dispatch() tells redux that the object it receives will be an action obj that will be passed into the reducers
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  checkUserSession: () => dispatch(checkUserSession())
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);
